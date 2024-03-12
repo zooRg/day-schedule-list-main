@@ -17,10 +17,10 @@ class MyAppointment extends IntervalRange {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   double heightOne = 120;
   double heightTwo = 180;
   double heightThree = 200;
@@ -103,8 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.abc_outlined),
             ),
           ),
-          createNewAppointmentAt:
-              (IntervalRange? interval, DayScheduleListWidgetErrors? error) {
+          createNewAppointmentAt: (IntervalRange? interval, DayScheduleListWidgetErrors? error) {
             if (error != null || interval == null) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text(
@@ -114,10 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
             } else {
               setState(() {
                 myAppointments.add(
-                  MyAppointment(
-                      title: 'New appointment',
-                      start: interval.start,
-                      end: interval.end),
+                  MyAppointment(title: 'New appointment', start: interval.start, end: interval.end),
                 );
               });
             }
@@ -137,8 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget _buildItem(
-      BuildContext context, MyAppointment appointment, double height) {
+  Widget _buildItem(BuildContext context, MyAppointment appointment, double height) {
     Color color = height > 30 ? Colors.white : Colors.grey;
     return Card(
       margin: const EdgeInsets.symmetric(
@@ -149,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(5.0),
         child: Text(
           appointment.title,
-          style: Theme.of(context).textTheme.caption?.copyWith(
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: color,
               ),
         ),
@@ -157,8 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<bool> _updateAppointmentDuration(
-      MyAppointment appointment, IntervalRange newInterval) {
+  Future<bool> _updateAppointmentDuration(MyAppointment appointment, IntervalRange newInterval) {
     setState(() {
       appointment.start = newInterval.start;
       appointment.end = newInterval.end;

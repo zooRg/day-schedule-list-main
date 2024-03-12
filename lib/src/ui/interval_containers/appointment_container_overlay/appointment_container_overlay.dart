@@ -15,8 +15,8 @@ class AppointmentContainerOverlay extends StatefulWidget {
     required this.child,
     required this.timeIndicatorsInset,
     required this.onTapToStopEditing,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final ScheduleItemPosition position;
   final LayerLink link;
@@ -28,12 +28,10 @@ class AppointmentContainerOverlay extends StatefulWidget {
   final void Function() onTapToStopEditing;
 
   @override
-  State<AppointmentContainerOverlay> createState() =>
-      _AppointmentContainerOverlayState();
+  State<AppointmentContainerOverlay> createState() => _AppointmentContainerOverlayState();
 }
 
-class _AppointmentContainerOverlayState
-    extends State<AppointmentContainerOverlay> {
+class _AppointmentContainerOverlayState extends State<AppointmentContainerOverlay> {
   @override
   Widget build(BuildContext context) {
     return Positioned(

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 class DayScheduleListInherited extends InheritedWidget {
   const DayScheduleListInherited({
-    required Widget child,
+    required super.child,
     required this.validTimesList,
     required this.minimumMinuteIntervalHeight,
     required this.timeOfDayWidgetHeight,
@@ -14,11 +14,8 @@ class DayScheduleListInherited extends InheritedWidget {
     required this.dragIndicatorBorderColor,
     required this.customDragIndicator,
     this.allowEdition = false,
-    Key? key,
-  }) : super(
-          child: child,
-          key: key,
-        );
+    super.key,
+  });
 
   final List<ScheduleTimeOfDay> validTimesList;
   final double minimumMinuteIntervalHeight;

@@ -8,8 +8,8 @@ class TimeOfDayWidget extends StatelessWidget {
     required this.scheduleTime,
     required this.height,
     this.timeTextStyle,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final double height;
   final ScheduleTimeOfDay scheduleTime;

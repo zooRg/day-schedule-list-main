@@ -13,12 +13,12 @@ class TimeOfDayText extends Text {
           time.format(context),
           style: timeTextStyle ??
               (color != null
-                  ? Theme.of(context).textTheme.caption?.copyWith(
+                  ? Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: color,
                       )
                   : (availability == TimeOfDayAvailability.available
-                      ? Theme.of(context).textTheme.caption
-                      : Theme.of(context).textTheme.caption?.copyWith(
+                      ? Theme.of(context).textTheme.bodySmall
+                      : Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.grey.shade400,
                           ))),
           key: key,

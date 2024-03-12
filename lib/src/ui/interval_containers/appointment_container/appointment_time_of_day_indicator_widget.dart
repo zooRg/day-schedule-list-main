@@ -8,16 +8,14 @@ class AppointmentTimeOfDayIndicatorWidget extends StatelessWidget {
   const AppointmentTimeOfDayIndicatorWidget.start({
     required this.time,
     required this.timeIndicatorsInset,
-    Key? key,
-  })  : kind = Kind.start,
-        super(key: key);
+    super.key,
+  }) : kind = Kind.start;
 
   const AppointmentTimeOfDayIndicatorWidget.end({
     required this.time,
     required this.timeIndicatorsInset,
-    Key? key,
-  })  : kind = Kind.end,
-        super(key: key);
+    super.key,
+  }) : kind = Kind.end;
 
   final TimeOfDay time;
   final double timeIndicatorsInset;

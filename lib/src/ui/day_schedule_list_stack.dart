@@ -11,8 +11,8 @@ class DayScheduleListStack extends StatelessWidget {
     required this.appointments,
     this.onTapUpOnDayScheduleList,
     this.timeTextStyle,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final GlobalKey validTimesListColumnKey;
   final LayerLink link;

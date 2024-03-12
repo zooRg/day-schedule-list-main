@@ -3,19 +3,19 @@ import 'package:day_schedule_list/src/helpers/appointment_container_utils.dart';
 import 'package:day_schedule_list/src/helpers/generic_utils.dart';
 import 'package:day_schedule_list/src/helpers/interval_range_utils.dart';
 import 'package:day_schedule_list/src/helpers/schedule_item_position_utils.dart';
-import 'package:day_schedule_list/src/models/schedule_time_of_day.dart';
-import 'package:day_schedule_list/src/models/unavailable_interval_to_add_appointment_exception.dart';
 import 'package:day_schedule_list/src/models/minute_interval.dart';
 import 'package:day_schedule_list/src/models/schedule_item_position.dart';
-import 'package:day_schedule_list/src/ui/interval_containers/appointment_container_overlay/appointment_overlay_controller.dart';
+import 'package:day_schedule_list/src/models/schedule_time_of_day.dart';
+import 'package:day_schedule_list/src/models/unavailable_interval_to_add_appointment_exception.dart';
 import 'package:day_schedule_list/src/ui/day_schedule_list_inherited.dart';
 import 'package:day_schedule_list/src/ui/day_schedule_list_stack.dart';
 import 'package:day_schedule_list/src/ui/interval_containers/appointment_container/appointment_update_controller.dart';
+import 'package:day_schedule_list/src/ui/interval_containers/appointment_container_overlay/appointment_overlay_controller.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/time_of_day_extensions.dart';
 import 'day_schedule_list_widget_mixin.dart';
 import 'interval_containers/unavailable_interval_container.dart';
-import '../helpers/time_of_day_extensions.dart';
 
 ///This is the widget that represents your daily schedule.
 ///Here you will see all your appointments for the [referenceDate].
@@ -31,23 +31,20 @@ class DayScheduleListWidget<T extends IntervalRange> extends StatefulWidget {
     this.optionalChildLine,
     this.createNewAppointmentAt,
     this.hourHeight = DayScheduleListWidgetMixin.defaultHourHeight,
-    this.minimumMinuteInterval =
-        DayScheduleListWidgetMixin.defaultMinimumMinuteInterval,
-    this.appointmentMinimumDuration =
-        DayScheduleListWidgetMixin.defaultAppointmentMinimumDuration,
+    this.minimumMinuteInterval = DayScheduleListWidgetMixin.defaultMinimumMinuteInterval,
+    this.appointmentMinimumDuration = DayScheduleListWidgetMixin.defaultAppointmentMinimumDuration,
     this.scrollController,
     this.dragIndicatorBorderWidth,
     this.dragIndicatorColor,
     this.dragIndicatorBorderColor,
     this.customDragIndicator,
     this.timeTextStyle,
-    Key? key,
+    super.key,
   })  : assert(
           minimumMinuteInterval <= appointmentMinimumDuration,
           'minimumMinuteInterval must be <= appointmentMinimumDuration',
         ),
-        assert(hourHeight > 0, 'hourHeight must be != null and > 0'),
-        super(key: key);
+        assert(hourHeight > 0, 'hourHeight must be != null and > 0');
 
   ///DateTime that it represents.
   final DateTime referenceDate;
@@ -130,20 +127,17 @@ class DayScheduleListWidget<T extends IntervalRange> extends StatefulWidget {
   final TextStyle? timeTextStyle;
 
   @override
-  DayScheduleListWidgetState<T> createState() =>
-      DayScheduleListWidgetState<T>();
+  DayScheduleListWidgetState<T> createState() => DayScheduleListWidgetState<T>();
 }
 
-class DayScheduleListWidgetState<S extends IntervalRange>
-    extends State<DayScheduleListWidget<S>>
+class DayScheduleListWidgetState<S extends IntervalRange> extends State<DayScheduleListWidget<S>>
     with DayScheduleListWidgetMixin, AppointmentUpdateCallbackController<S> {
   @override
   double get hourHeight => widget.hourHeight;
   @override
   MinuteInterval get minimumMinuteInterval => widget.minimumMinuteInterval;
   @override
-  MinuteInterval get appointmentMinimumDuration =>
-      widget.appointmentMinimumDuration;
+  MinuteInterval get appointmentMinimumDuration => widget.appointmentMinimumDuration;
 
   bool get allowEdition => widget.createNewAppointmentAt != null;
 
@@ -216,11 +210,9 @@ class DayScheduleListWidgetState<S extends IntervalRange>
             return DayScheduleListStack(
               validTimesListColumnKey: _validTimesListColumnKey,
               link: overlayController.link,
-              onTapUpOnDayScheduleList: widget.createNewAppointmentAt != null
-                  ? _onTapUpOnDayScheduleList
-                  : null,
-              internalUnavailableIntervals:
-                  UnavailableIntervalContainer.buildList(
+              onTapUpOnDayScheduleList:
+                  widget.createNewAppointmentAt != null ? _onTapUpOnDayScheduleList : null,
+              internalUnavailableIntervals: UnavailableIntervalContainer.buildList(
                 unavailableIntervals: buildInternalUnavailableIntervals(
                   unavailableIntervals: widget.unavailableIntervals,
                 ),
@@ -233,8 +225,7 @@ class DayScheduleListWidgetState<S extends IntervalRange>
               appointments: AppointmentContainerUtils.buildList<S>(
                 callbackController: this,
                 appointments: appointments,
-                appointmentBuilder: (appointment, height) =>
-                    widget.appointmentBuilder(
+                appointmentBuilder: (appointment, height) => widget.appointmentBuilder(
                   context,
                   appointment,
                   height,
@@ -245,7 +236,8 @@ class DayScheduleListWidgetState<S extends IntervalRange>
                 minimumMinuteIntervalHeight: minimumMinuteIntervalHeight,
                 childWidthLine: widget.optionalChildWidthLine,
                 optionalChildLine: (appointment, height) => widget.optionalChildLine != null
-                  ? widget.optionalChildLine!(context, appointment, height) : Container(),
+                    ? widget.optionalChildLine!(context, appointment, height)
+                    : Container(),
               ),
               timeTextStyle: widget.timeTextStyle,
             );
@@ -273,8 +265,7 @@ class DayScheduleListWidgetState<S extends IntervalRange>
     }
   }
 
-  void _createNewAppointmentAt(
-      IntervalRange? appointment, DayScheduleListWidgetErrors? error) {
+  void _createNewAppointmentAt(IntervalRange? appointment, DayScheduleListWidgetErrors? error) {
     final action = widget.createNewAppointmentAt;
     if (action != null) {
       action(appointment, error);
@@ -312,20 +303,17 @@ class DayScheduleListWidgetState<S extends IntervalRange>
       return false;
     }
 
-    final success =
-        await widget.updateAppointDuration(appointment, newInterval);
+    final success = await widget.updateAppointDuration(appointment, newInterval);
     return success;
   }
 
   @override
-  bool canUpdateTo(ScheduleItemPosition position, int index,
-      AppointmentUpdateMode mode) {
+  bool canUpdateTo(ScheduleItemPosition position, int index, AppointmentUpdateMode mode) {
     if (mode == AppointmentUpdateMode.position) {
       return canUpdatePositionOfInterval(
         newPosition: position,
         insetVertical: insetVertical(),
-        contentHeight:
-            _validTimesListColumnKey.currentContext?.size?.height ?? 0,
+        contentHeight: _validTimesListColumnKey.currentContext?.size?.height ?? 0,
       );
     } else {
       return canUpdateHeightOfInterval<S>(
@@ -347,8 +335,7 @@ class DayScheduleListWidgetState<S extends IntervalRange>
   ) {
     final windowSize = MediaQuery.of(context).size;
     int sizeCalculation = 0;
-    final double offsetIncrement =
-        ScheduleItemPositionUtils.calculateOffsetIncrement(
+    final double offsetIncrement = ScheduleItemPositionUtils.calculateOffsetIncrement(
       oldPosition: oldPosition,
       newPosition: newPosition,
       updateMode: updateMode,
@@ -361,7 +348,9 @@ class DayScheduleListWidgetState<S extends IntervalRange>
     } else if (windowSize.height >= 800) {
       sizeCalculation = 465;
     }
-    return windowSize.height - (newPosition.top + newPosition.height - currentScrollOffset) <= sizeCalculation && offsetIncrement >= 0;
+    return windowSize.height - (newPosition.top + newPosition.height - currentScrollOffset) <=
+            sizeCalculation &&
+        offsetIncrement >= 0;
   }
 
   @override
@@ -370,8 +359,7 @@ class DayScheduleListWidgetState<S extends IntervalRange>
     ScheduleItemPosition oldPosition,
     AppointmentUpdateMode updateMode,
   ) {
-    final double offsetIncrement =
-        ScheduleItemPositionUtils.calculateOffsetIncrement(
+    final double offsetIncrement = ScheduleItemPositionUtils.calculateOffsetIncrement(
       oldPosition: oldPosition,
       newPosition: newPosition,
       updateMode: updateMode,
@@ -426,8 +414,7 @@ class DayScheduleListWidgetState<S extends IntervalRange>
   }
 
   @override
-  void onUpdateStart(ScheduleItemPosition position, S appointment,
-      AppointmentUpdateMode mode) {
+  void onUpdateStart(ScheduleItemPosition position, S appointment, AppointmentUpdateMode mode) {
     overlayController.showUpdateOverlay<S>(
       mode: mode,
       context: context,

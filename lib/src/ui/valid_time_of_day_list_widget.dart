@@ -3,16 +3,16 @@ import 'package:day_schedule_list/src/models/schedule_time_of_day.dart';
 import 'package:day_schedule_list/src/ui/day_schedule_list_inherited.dart';
 import 'package:flutter/material.dart';
 
-import 'time_of_day_widget.dart';
 import '../helpers/time_of_day_extensions.dart';
+import 'time_of_day_widget.dart';
 
 class ValidTimeOfDayListWidget extends StatelessWidget {
   static const double baseInsetVertical = 20;
 
   const ValidTimeOfDayListWidget({
-    Key? key,
+    super.key,
     this.timeTextStyle,
-  }) : super(key: key);
+  });
 
   final TextStyle? timeTextStyle;
 
@@ -73,18 +73,14 @@ class ValidTimeOfDayListWidget extends StatelessWidget {
   }) {
     final inherited = DayScheduleListInherited.of(context);
 
-    final MinuteInterval minimumMinuteInterval =
-        inherited.minimumMinuteInterval;
-    final double minimumMinuteIntervalHeight =
-        inherited.minimumMinuteIntervalHeight;
+    final MinuteInterval minimumMinuteInterval = inherited.minimumMinuteInterval;
+    final double minimumMinuteIntervalHeight = inherited.minimumMinuteIntervalHeight;
     final double timeOfDayWidgetHeight = inherited.timeOfDayWidgetHeight;
 
     final timeInMinutes = currentTime.time.toMinutes;
     final nextTimeInMinutes = nextTime.time.toMinutes;
     final intervalInMinutes = nextTimeInMinutes - timeInMinutes;
-    final numberOfStepsBetween =
-        intervalInMinutes / minimumMinuteInterval.numberValue;
-    return numberOfStepsBetween * minimumMinuteIntervalHeight -
-        timeOfDayWidgetHeight;
+    final numberOfStepsBetween = intervalInMinutes / minimumMinuteInterval.numberValue;
+    return numberOfStepsBetween * minimumMinuteIntervalHeight - timeOfDayWidgetHeight;
   }
 }

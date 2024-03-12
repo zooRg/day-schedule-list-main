@@ -8,9 +8,8 @@ class DragIndicatorWidget extends StatelessWidget {
     required this.onLongPressStart,
     required this.onLongPressEnd,
     required this.onLongPressMoveUpdate,
-    Key? key,
-  })  : mode = DragIndicatorMode.top,
-        super(key: key);
+    super.key,
+  }) : mode = DragIndicatorMode.top;
 
   const DragIndicatorWidget.bottom({
     required this.enabled,
@@ -18,29 +17,26 @@ class DragIndicatorWidget extends StatelessWidget {
     required this.onLongPressStart,
     required this.onLongPressEnd,
     required this.onLongPressMoveUpdate,
-    Key? key,
-  })  : mode = DragIndicatorMode.bottom,
-        super(key: key);
+    super.key,
+  }) : mode = DragIndicatorMode.bottom;
 
   const DragIndicatorWidget.overlayTop({
-    Key? key,
+    super.key,
   })  : enabled = true,
         mode = DragIndicatorMode.overlayTop,
         onLongPressDown = null,
         onLongPressStart = null,
         onLongPressMoveUpdate = null,
-        onLongPressEnd = null,
-        super(key: key);
+        onLongPressEnd = null;
 
   const DragIndicatorWidget.overlayBottom({
-    Key? key,
+    super.key,
   })  : enabled = true,
         mode = DragIndicatorMode.overlayBottom,
         onLongPressDown = null,
         onLongPressStart = null,
         onLongPressMoveUpdate = null,
-        onLongPressEnd = null,
-        super(key: key);
+        onLongPressEnd = null;
 
   final DragIndicatorMode mode;
   final bool enabled;
@@ -51,15 +47,13 @@ class DragIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final inherited = DayScheduleListInherited.of(context);
 
     final Color? dragIndicatorColor = inherited.dragIndicatorColor;
     final Color? dragIndicatorBorderColor = inherited.dragIndicatorBorderColor;
     final double? dragIndicatorBorderWidth = inherited.dragIndicatorBorderWidth;
 
-    final isTop =
-        [DragIndicatorMode.top, DragIndicatorMode.overlayTop].contains(mode);
+    final isTop = [DragIndicatorMode.top, DragIndicatorMode.overlayTop].contains(mode);
     final isBottom = [
       DragIndicatorMode.bottom,
       DragIndicatorMode.overlayBottom,
@@ -111,8 +105,7 @@ class DragIndicatorWidget extends StatelessWidget {
   }
 }
 
-typedef CustomDragIndicatorBuilder = Widget Function(
-    CustomDragIndicatorPosition);
+typedef CustomDragIndicatorBuilder = Widget Function(CustomDragIndicatorPosition);
 
 enum CustomDragIndicatorPosition { topLeft, bottomRight }
 
@@ -128,17 +121,13 @@ class _IndicatorWidget extends StatelessWidget {
     required this.dragIndicatorBorderColor,
     required this.dragIndicatorBorderWidth,
     required this.dragIndicatorColor,
-    Key? key,
-  })  : _mode = _IndicatorMode.bottom,
-        super(key: key);
+  }) : _mode = _IndicatorMode.bottom;
 
   const _IndicatorWidget.top({
     required this.dragIndicatorBorderColor,
     required this.dragIndicatorBorderWidth,
     required this.dragIndicatorColor,
-    Key? key,
-  })  : _mode = _IndicatorMode.top,
-        super(key: key);
+  }) : _mode = _IndicatorMode.top;
 
   final Color? dragIndicatorColor;
   final Color? dragIndicatorBorderColor;

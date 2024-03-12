@@ -37,8 +37,7 @@ class AppointmentUpdateController {
 
   void onLongPressEnd(LongPressEndDetails _) {
     _runningUpdateLoopDirection = LoopDirection.none;
-    if (_didMove &&
-        callbackController.canUpdateTo(_currentPosition, itemIndex, mode)) {
+    if (_didMove && callbackController.canUpdateTo(_currentPosition, itemIndex, mode)) {
       callbackController.onUpdateEnd(_currentPosition, itemIndex);
       _resetCurrentPosition();
     } else {
@@ -77,8 +76,7 @@ class AppointmentUpdateController {
     } else {
       final localCurrentHeight = _currentPosition.height;
       topIncrement = mode == AppointmentUpdateMode.durationFromTop ? value : 0;
-      heightIncrement =
-          value * (mode == AppointmentUpdateMode.durationFromBottom ? 1 : -1);
+      heightIncrement = value * (mode == AppointmentUpdateMode.durationFromBottom ? 1 : -1);
       newHeight = localCurrentHeight + heightIncrement;
       newTop += topIncrement;
       newPosition = ScheduleItemPosition(top: newTop, height: newHeight);
@@ -158,7 +156,7 @@ class AppointmentUpdateController {
   }
 }
 
-abstract class AppointmentUpdateCallbackController<S extends IntervalRange> {
+mixin AppointmentUpdateCallbackController<S extends IntervalRange> {
   bool newSchedulePositionIsOnMaxVisibleTop(
     ScheduleItemPosition newPosition,
     ScheduleItemPosition oldPosition,
@@ -197,4 +195,8 @@ enum AppointmentUpdateMode {
   none,
 }
 
-enum LoopDirection { top, bottom, none,}
+enum LoopDirection {
+  top,
+  bottom,
+  none,
+}

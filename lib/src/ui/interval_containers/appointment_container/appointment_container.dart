@@ -1,8 +1,8 @@
 import 'package:day_schedule_list/day_schedule_list.dart';
 import 'package:day_schedule_list/src/models/schedule_item_position.dart';
 import 'package:day_schedule_list/src/ui/day_schedule_list_inherited.dart';
-import 'package:day_schedule_list/src/ui/interval_containers/appointment_container/drag_indicator_widget.dart';
 import 'package:day_schedule_list/src/ui/interval_containers/appointment_container/appointment_update_controller.dart';
+import 'package:day_schedule_list/src/ui/interval_containers/appointment_container/drag_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,8 +15,8 @@ class AppointmentContainer<S extends IntervalRange> extends StatefulWidget {
     required this.child,
     this.optionalChildLine = const SizedBox.shrink(),
     this.optionalChildWidthLine = 0,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final S appointment;
   final ScheduleItemPosition position;
@@ -51,8 +51,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
   void didChangeDependencies() {
     updateController = AppointmentUpdateController(
       itemIndex: widget.itemIndex,
-      updateStep:
-          DayScheduleListInherited.of(context).minimumMinuteIntervalHeight,
+      updateStep: DayScheduleListInherited.of(context).minimumMinuteIntervalHeight,
       //error because calling this code inside initState
       originalPosition: widget.position,
       callbackController: widget.callbackController,
@@ -64,9 +63,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
   Widget build(BuildContext context) {
     final inherited = DayScheduleListInherited.of(context);
     final double width = MediaQuery.of(context).size.width -
-        (DayScheduleListWidget.intervalContainerLeftInset +
-            5 +
-            widget.optionalChildWidthLine);
+        (DayScheduleListWidget.intervalContainerLeftInset + 5 + widget.optionalChildWidthLine);
     return Positioned(
       top: widget.position.top,
       right: 0,
@@ -89,8 +86,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                           )
                       : null,
                   onLongPressEnd: isEditing ? _onLongPressEnd : null,
-                  onLongPressMoveUpdate:
-                      isEditing ? _onLongPressMoveUpdate : null,
+                  onLongPressMoveUpdate: isEditing ? _onLongPressMoveUpdate : null,
                   child: Container(
                     height: widget.position.height,
                     constraints: BoxConstraints(
@@ -117,8 +113,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                   ),
                   onLongPressStart: null,
                   onLongPressEnd: _onLongPressEnd, //onLongPressEnd,
-                  onLongPressMoveUpdate:
-                      _onLongPressMoveUpdate, //onLongPressMoveUpdate,
+                  onLongPressMoveUpdate: _onLongPressMoveUpdate, //onLongPressMoveUpdate,
                 ),
                 DragIndicatorWidget.bottom(
                   enabled: isEditing,
@@ -128,8 +123,7 @@ class _AppointmentContainerState extends State<AppointmentContainer> {
                   ),
                   onLongPressStart: null,
                   onLongPressEnd: _onLongPressEnd, //onLongPressEnd,
-                  onLongPressMoveUpdate:
-                      _onLongPressMoveUpdate, //onLongPressMoveUpdate,
+                  onLongPressMoveUpdate: _onLongPressMoveUpdate, //onLongPressMoveUpdate,
                 ),
               ],
             ),

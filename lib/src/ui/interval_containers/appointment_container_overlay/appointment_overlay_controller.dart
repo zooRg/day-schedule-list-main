@@ -4,8 +4,8 @@ import 'package:day_schedule_list/src/helpers/interval_range_utils.dart';
 import 'package:day_schedule_list/src/models/schedule_item_position.dart';
 import 'package:day_schedule_list/src/models/schedule_time_of_day.dart';
 import 'package:day_schedule_list/src/ui/day_schedule_list_widget.dart';
-import 'package:day_schedule_list/src/ui/interval_containers/appointment_container_overlay/appointment_container_overlay.dart';
 import 'package:day_schedule_list/src/ui/interval_containers/appointment_container/appointment_update_controller.dart';
+import 'package:day_schedule_list/src/ui/interval_containers/appointment_container_overlay/appointment_container_overlay.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentOverlayController {
@@ -40,8 +40,7 @@ class AppointmentOverlayController {
     hideAppoinmentOverlay();
     appointmentOverlayEntry = OverlayEntry(
       builder: (BuildContext context) {
-        final updatedInterval =
-            IntervalRangeUtils.calculateItervalRangeForNewPosition(
+        final updatedInterval = IntervalRangeUtils.calculateItervalRangeForNewPosition(
           range: interval,
           newPosition: appointmentOverlayPosition,
           firstValidTime: validTimesList.first,
@@ -68,10 +67,8 @@ class AppointmentOverlayController {
       },
     );
 
-    Overlay.of(context)?.insert(appointmentOverlayEntry!);
-
+    Overlay.maybeOf(context)?.insert(appointmentOverlayEntry!);
   }
-
 
   void updateAppointmentOverlay(ScheduleItemPosition newPosition) {
     appointmentOverlayPosition = newPosition;

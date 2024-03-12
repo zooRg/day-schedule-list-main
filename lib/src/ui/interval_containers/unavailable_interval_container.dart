@@ -8,8 +8,8 @@ class UnavailableIntervalContainer extends StatelessWidget {
   const UnavailableIntervalContainer({
     required this.interval,
     required this.position,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final IntervalRange interval;
   final ScheduleItemPosition position;
